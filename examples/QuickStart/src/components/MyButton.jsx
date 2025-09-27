@@ -1,11 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 
-function MyButton() {
-    function onClick() {
-        setCount(count + 1);
-    }
-
-    const [count, setCount] = useState(0)
+function MyButton({count, onClick}) {
 
     return(
         <button onClick={onClick}>
