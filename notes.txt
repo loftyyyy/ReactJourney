@@ -1,0 +1,8 @@
+Day 1:
+React apps are composed of components.
+React uses JSX instead of plain HTML.
+React uses function that returns a markup or HTML
+Adding styles uses 'className' instead of 'class' which is the de facto in HTML.
+
+
+
