@@ -8,9 +8,13 @@ function Board(){
     const [count, setCount] = useState(0)
     function handleClick(i){
         const nextSquares = squares.slice();
-        if(count % 2 === 0 && nextSquares[i] == null){
+        if(nextSquares[i] !== null){
+            return;
+        }
+
+        if(count % 2 === 0){
             nextSquares[i] = "X";
-        }else if(count %2 !== 0 && nextSquares[i] == null){
+        }else if(count %2 !== 0){
             nextSquares[i] = "O";
         }
         setCount(count + 1);
@@ -33,9 +37,9 @@ function Board(){
         for(let line of lines){
             const[a,b,c] = line;
             if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-                console.log("Winner");
+                return squares[a];
             }
-            console.log("Not Yet");
+            return null;
         }
     }
 
