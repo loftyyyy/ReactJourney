@@ -3,31 +3,27 @@ import Square from './square'
 import {useState} from "react";
 
 function Board(){
-    const [squares, setSquares] = useState(Array(9).fill(null))
-    const [count, setCount] = useState(0)
-    let status;
+    const [squares, setSquares] = useState(Array(9).fill(null));
+    const [count, setCount] = useState(0);
+    const [status, setStatus] = useState("Next Player: X");
 
-
-    function handleClick(i){
+    function handleClick(i) {
         const nextSquares = squares.slice();
-
-        if(nextSquares[i] !== null){
+        if (nextSquares[i] !== null || checkWin(nextSquares) !== null) {
             return;
         }
-        if(count % 2 === 0){
-            nextSquares[i] = "X";
-        }else if(count %2 !== 0){
-            nextSquares[i] = "O";
-        }
+
+        nextSquares[i] = count % 2 === 0 ? "X" : "O";
+
         setCount(count + 1);
         setSquares(nextSquares);
-        if(checkWin(nextSquares) === null){
-           status = "Next Player: " + (count %2 === 0 ? "X" : "O");
+
+        if (checkWin(nextSquares) === null) {
+            setStatus("Next Player: " + (count % 2 === 0 ? "O" : "X"));
         }
     }
 
-    function checkWin(squares){
-        console.log(squares);
+    function checkWin(squares) {
         const lines = [
             [0, 1, 2],
             [3, 4, 5],
@@ -36,17 +32,17 @@ function Board(){
             [1, 4, 7],
             [2, 5, 8],
             [0, 4, 8],
-            [2, 4, 6]
+            [2, 4, 6],
         ];
 
-        for(let line of lines){
-            const[a,b,c] = line;
-            if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-                status = "Winner " + squares[a];
+        for (let line of lines) {
+            const [a, b, c] = line;
+            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                setStatus("Winner " + squares[a]);
                 return squares[a];
             }
-            return null;
         }
+        return null;
     }
 
     return (
