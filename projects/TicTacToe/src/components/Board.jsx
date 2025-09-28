@@ -4,14 +4,16 @@ import {useState} from "react";
 
 function Board(){
     const [squares, setSquares] = useState(Array(9).fill(null))
-
     const [count, setCount] = useState(0)
+    let status;
+
+
     function handleClick(i){
         const nextSquares = squares.slice();
+
         if(nextSquares[i] !== null){
             return;
         }
-
         if(count % 2 === 0){
             nextSquares[i] = "X";
         }else if(count %2 !== 0){
@@ -19,8 +21,11 @@ function Board(){
         }
         setCount(count + 1);
         setSquares(nextSquares);
-        checkWin(nextSquares)
+        if(checkWin(nextSquares) === null){
+           status = "Next Player: " + (count %2 === 0 ? "X" : "O");
+        }
     }
+
     function checkWin(squares){
         console.log(squares);
         const lines = [
@@ -37,6 +42,7 @@ function Board(){
         for(let line of lines){
             const[a,b,c] = line;
             if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+                status = "Winner " + squares[a];
                 return squares[a];
             }
             return null;
@@ -45,6 +51,7 @@ function Board(){
 
     return (
         <div>
+            <div className="status">{status}</div>
             <div className="board-row">
                 <Square value={squares[0]} handleClick={() => {handleClick(0)}}/>
                 <Square value={squares[1]} handleClick={() => {handleClick(1)}}/>
