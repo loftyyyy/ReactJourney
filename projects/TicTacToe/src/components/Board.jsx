@@ -2,7 +2,7 @@ import './board.css'
 import Square from './square'
 import {useState} from "react";
 
-function Board(){
+function Board(props){
     const [squares, setSquares] = useState(Array(9).fill(null));
     const [count, setCount] = useState(0);
     const [status, setStatus] = useState("Next Player: X");
@@ -21,6 +21,8 @@ function Board(){
         if (checkWin(nextSquares) === null) {
             setStatus("Next Player: " + (count % 2 === 0 ? "O" : "X"));
         }
+
+        sendBoardToParent(nextSquares)
     }
 
     function checkWin(squares) {
@@ -43,6 +45,11 @@ function Board(){
             }
         }
         return null;
+    }
+
+    function sendBoardToParent(board){
+        props.sendBoard(board)
+
     }
 
     return (
