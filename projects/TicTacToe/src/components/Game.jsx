@@ -9,9 +9,16 @@ function Game() {
     }
 
     return(
-        <div>
-            <Board sendBoard={handleBoardStateFromChild} />
+        <div className="game">
+            <div className="game-board">
+                <Board sendBoard={handleBoardStateFromChild} />
+            </div>
+            <div className="game-info">
+                <ol>{}</ol>
+            </div>
+
         </div>
+
     )
 
 }
