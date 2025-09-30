@@ -21,8 +21,9 @@ function Board(props){
         if (checkWin(nextSquares) === null) {
             setStatus("Next Player: " + (count % 2 === 0 ? "O" : "X"));
         }
+        onplay(nextSquares)
 
-        sendBoardToParent(nextSquares)
+        // sendBoardToParent(nextSquares)
     }
 
     function checkWin(squares) {
